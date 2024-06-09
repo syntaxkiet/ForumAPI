@@ -29,7 +29,7 @@ namespace ForumAPI
                 options.AddPolicy("AllowSpecificOrigin",
                     builder =>
                     {
-                        builder.WithOrigins("https://aeri4forumapi.azurewebsites.net/") 
+                        builder.WithOrigins("https://aeri4rumapi.azurewebsites.net/") 
                                .AllowAnyHeader()
                                .AllowAnyMethod();
                     });
