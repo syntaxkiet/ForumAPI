@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using ForumAPI.Data;
+using Microsoft.AspNetCore.Cors;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace ForumAPI.Controllers
 {
@@ -27,9 +29,9 @@ namespace ForumAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Category>> GetCategory(int id)
+        public async Task<ActionResult<IEnumerable<Category>>> GetCategory(string id)
         {
-            var category = await _context.Categories.Include(c => c.Threads).FirstOrDefaultAsync(c => c.Id == id);
+            var category = await _context.Categories.Where(c => c.Name.Contains(id) || c.Description.Contains(id)).ToListAsync();
 
             if (category == null)
             {
